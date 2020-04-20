@@ -40,13 +40,15 @@ export default class Table {
      * Only for this function, it matters where you are putting the <tr>
      * @param {number} rowIdx 
      * @param {number} nColumns 
+     * @param {number} nRows 
      * @param {Function} callBack 
      */
-    insertRow(rowIdx, nColumns, callBack) {
-        let newRow = this._tBody.insertRow(rowIdx);
-        this._insertCells(newRow, 0, nColumns, callBack);
-
-        return newRow;
+    insertRows(rowIdx, nColumns, nRows, callBack) {
+        for (let i = 0; i < nRows; ++i, ++rowIdx)
+        {
+            let newRow = this._tBody.insertRow(rowIdx);
+            this._insertCells(newRow, 0, nColumns, callBack);
+        }
     }
 
     /**
@@ -55,6 +57,8 @@ export default class Table {
      * @param {number} nColumns 
      * @param {Function} callBack 
      */
+    // Only one function needed to add one or multiple columns
+    // as it is faster to add multiple cells within one row
     insertColumns(columnIndex, nColumns, callBack) {
         for (let i = 0; i < this._table.rows.length; ++i) {
             let rowElement = this._table.rows[i];
@@ -66,14 +70,18 @@ export default class Table {
      * Delete one row
      * @param {number} rowIdx 
      */
+    // Cannot have deleteRows only because of the similar reason as in
+    // deleteColumns
     deleteRow(rowIdx) {
         this._table.deleteRow(rowIdx);
     }
 
     /**
-     * Delete columns at given index
+     * Delete columns at given index.
      * @param {number} columnIdx  
      */
+    // Cannot have one deleteColumns only because as soon as I delete one 
+    // cell, the index gets changed.
     deleteColumn(columnIdx) {
         for (let i = 0; i < this._table.rows.length; ++i) {
             this._table.rows[i].deleteCell(columnIdx);

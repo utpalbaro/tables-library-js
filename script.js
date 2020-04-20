@@ -12,10 +12,10 @@ function print(cell) {
 }
 
 // working
-table.insertRow(-1, 4, print);
-table.insertRow(-1, 4, print);
-table.insertRow(-1, 4, print);
-table.insertRow(-1, 4, print);
+table.insertRows(-1, 4, 2, print);
+table.insertRows(-1, 4, 2, print);
+table.insertRows(-1, 4, 2, print);
+table.insertRows(-1, 4, 2, print);
 
 // // working
 // table.insertColumns(3, 4, print);
