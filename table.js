@@ -5,9 +5,9 @@
  */
 export default class Table {
     /**
-     * 
-     * @param {HTMLElement} parent 
-     * @param {string} tableId 
+     * Creates an empty <table> element
+     * @param {HTMLElement} parent Parent to attach to
+     * @param {string} tableId Table ID
      */
     constructor(parent, tableId) {
         this._table         =   document.createElement('table');
@@ -20,56 +20,71 @@ export default class Table {
     }
 
     /**
-     * Header row will always be added at the top of the table
-     * @param {number} nColumns 
-     * @param {Function} callBack 
-     */
-    insertHeaderRow(nColumns, callBack) {
-        let tHead = this._table.createTHead();
-
-        // Create single tr element. Not using insertRow because
-        // I want to append at the end of tHead
-        let newRow = document.createElement('tr');
-
-        // create th elements
-        for (let i = 0; i < nColumns; ++i) {
-            let newCell = document.createElement('th');
-            newRow.appendChild(newCell);
-
-            if (callBack)
-                callBack(newCell);
-
-        }
-
-        tHead.appendChild(newRow);
-
-        return newRow;
-    }
-
-    /**
-     * Inserts one row to the <tbody>
-     * @param {number} rowIdx 
-     * @param {number} nColumns 
-     * @param {Function} callBack 
-     */
-    insertRow(rowIdx, nColumns, callBack) {
-        let newRow = this._tBody.insertRow(rowIdx);
-        this.insertCells(newRow, 0, nColumns, callBack);
-
-        return newRow;
-    }
-
-    /**
-     * <td> cells will be created at each row
+     * Insert cell(s) to any given row
      * @param {HTMLElement} rowElement 
+     * @param {number} columnIdx 
      * @param {number} nColumns 
+     * @param {Function} callBack 
      */
-    insertCells(rowElement, columnIdx, nColumns, callBack) {
+    _insertCells(rowElement, columnIdx, nColumns, callBack) {
         for (let i = 0; i < nColumns; ++i, ++columnIdx) {
             let newCell = rowElement.insertCell(columnIdx);
 
             if (callBack)
                 callBack(newCell);
         }
+    }
+
+    /**
+     * Inserts one row to the <tbody>. 
+     * Only for this function, it matters where you are putting the <tr>
+     * @param {number} rowIdx 
+     * @param {number} nColumns 
+     * @param {Function} callBack 
+     */
+    insertRow(rowIdx, nColumns, callBack) {
+        let newRow = this._tBody.insertRow(rowIdx);
+        this._insertCells(newRow, 0, nColumns, callBack);
+
+        return newRow;
+    }
+
+    /**
+     * Loops through all the rows of the table
+     * @param {number} columnIndex 
+     * @param {number} nColumns 
+     * @param {Function} callBack 
+     */
+    insertColumns(columnIndex, nColumns, callBack) {
+        for (let i = 0; i < this._table.rows.length; ++i) {
+            let rowElement = this._table.rows[i];
+            this._insertCells(rowElement, columnIndex, nColumns, callBack);
+        }
+    }
+
+    /**
+     * Delete one row
+     * @param {number} rowIdx 
+     */
+    deleteRow(rowIdx) {
+        this._table.deleteRow(rowIdx);
+    }
+
+    /**
+     * Delete columns at given index
+     * @param {number} columnIdx  
+     */
+    deleteColumn(columnIdx) {
+        for (let i = 0; i < this._table.rows.length; ++i) {
+            this._table.rows[i].deleteCell(columnIdx);
+        }
+    }
+
+    /**
+     * Delete the entire table
+     */
+    deleteTable() {
+        this._table.remove();
+        this._table = undefined;
     }
 }
