@@ -6,8 +6,8 @@
 export default class Table {
     /**
      * Creates an empty <table> element
-     * @param {HTMLElement} parent Parent to attach to
-     * @param {string} tableId Table ID
+     * @param {HTMLElement} parent - Parent to attach to
+     * @param {string} tableId - Table ID
      */
     constructor(parent, tableId) {
         this._table         =   document.createElement('table');
@@ -94,5 +94,17 @@ export default class Table {
     deleteTable() {
         this._table.remove();
         this._table = undefined;
+    }
+
+    getNumberOfRows() {
+        return this._table.rows.length;
+    }
+
+    /**
+     * 
+     * @param {number} rowId 
+     */
+    getNumberOfColumns(rowId) {
+        return this._table.rows[rowId].cells.length;
     }
 }

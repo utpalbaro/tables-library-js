@@ -1,21 +1,22 @@
 'use strict'
 
-import Table from './table.js'
+// import Table from './table.js'
+import TableWithHeaders from './tableWithHeaders.js';
 
-const table = new Table(document.body, 'table1');
+// const table = new Table(document.body, 'table1');
 
-var number = 0;
+// var number = 0;
 
-function print(cell) {
-    ++number;
-    cell.innerText = number.toString(); 
-}
+// function print(cell) {
+//     ++number;
+//     cell.innerText = number.toString(); 
+// }
 
 // working
-table.insertRows(-1, 4, 2, print);
-table.insertRows(-1, 4, 2, print);
-table.insertRows(-1, 4, 2, print);
-table.insertRows(-1, 4, 2, print);
+// table.insertRows(-1, 4, 2, print);
+// table.insertRows(-1, 4, 2, print);
+// table.insertRows(-1, 4, 2, print);
+// table.insertRows(-1, 4, 2, print);
 
 // // working
 // table.insertColumns(3, 4, print);
@@ -25,4 +26,13 @@ table.insertRows(-1, 4, 2, print);
 
 
 // works
-table.deleteColumn(2);
+// table.deleteColumn(2);
+
+const table = new TableWithHeaders(document.body, 'table1');
+let columns = 4;
+
+table.createHeaderRow(columns);
+table.insertRows(-1, 4, 1);
+table.insertRows(-1, 4, 1);
+table.insertRows(-1, 4, 1);
+table.insertRows(-1, 4, 1);
