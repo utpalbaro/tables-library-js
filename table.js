@@ -24,7 +24,7 @@ export default class Table {
      * @param {HTMLElement} rowElement 
      * @param {number} columnIdx 
      * @param {number} nColumns 
-     * @param {Function} callBack 
+     * @callback callBack 
      */
     _insertCells(rowElement, columnIdx, nColumns, callBack) {
         for (let i = 0; i < nColumns; ++i, ++columnIdx) {
@@ -41,7 +41,7 @@ export default class Table {
      * @param {number} rowIdx 
      * @param {number} nColumns 
      * @param {number} nRows 
-     * @param {Function} callBack 
+     * @callback callBack 
      */
     insertRows(rowIdx, nColumns, nRows, callBack) {
         for (let i = 0; i < nRows; ++i, ++rowIdx)
@@ -55,7 +55,7 @@ export default class Table {
      * Loops through all the rows of the table
      * @param {number} columnIndex 
      * @param {number} nColumns 
-     * @param {Function} callBack 
+     * @callback callBack 
      */
     // Only one function needed to add one or multiple columns
     // as it is faster to add multiple cells within one row

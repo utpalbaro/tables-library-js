@@ -15,7 +15,7 @@ export default class TableWithHeaders extends Table {
     /**
      * 
      * @param {number} nColumns 
-     * @param {Function} callback 
+     * @callback callback 
      */
     createHeaderRow(nColumns, callBack) {
         let headerRow = this._tHead.insertRow(0);
