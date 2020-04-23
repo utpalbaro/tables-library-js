@@ -40,11 +40,15 @@ import TableEditable from './tableEditable.js';
 
 const table = new TableEditable(document.body, 'table');
 
-function print(cell) {
-    cell.innerText = 'Aloha!'
-}
+let print = (function () {
+    let i = 0;
+    return function(cell) {
+        cell.innerText = `cell ${i}`;
+        ++i;
+    }
+})();
 
 let columns = 4;
 
 table.createHeaderRow(columns, print);
-table.insertRows(-1, columns, 10, print);
+table.insertRows(0, columns, 10, print);
