@@ -28,4 +28,20 @@ export default class TableWithHeaders extends Table {
                 callBack(th);
         }
     }
+
+    sortColumn(columnIdx, startRow, endRow, sortCallBack) {
+        let list = [];
+        for (let i = startRow; i < endRow; ++i) {
+            list.push(this._table.rows[i].cells[columnIdx].innerText);
+        }
+
+        if (sortCallBack)
+            sortCallBack(list);
+        else
+            list.sort();
+
+        for (let i = startRow; i < endRow; ++i) {
+            this._table.rows[i].cells[columnIdx].innerText = list[i - startRow];
+        }
+    }
 }

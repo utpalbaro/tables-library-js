@@ -43,7 +43,7 @@ const table = new TableEditable(document.body, 'table');
 let print = (function () {
     let i = 0;
     return function(cell) {
-        cell.innerText = `cell ${i}`;
+        cell.innerText = `cell ${i/2}`;
         ++i;
     }
 })();
@@ -52,3 +52,5 @@ let columns = 4;
 
 table.createHeaderRow(columns, print);
 table.insertRows(0, columns, 10, print);
+
+// table.sortColumn(1, 1, table.getNumberOfRows());
